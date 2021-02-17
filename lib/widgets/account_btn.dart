@@ -11,7 +11,6 @@ class AccountBtn extends StatelessWidget {
       onPressed: () => {Navigator.of(context).pushNamed(navigatorPageRoute)},
       textColor: whiteColor,
       padding: const EdgeInsets.all(0.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: Container(
         padding: const EdgeInsets.fromLTRB(50, 5, 50, 5),
         child: Text(
@@ -23,7 +22,6 @@ class AccountBtn extends StatelessWidget {
               fontWeight: FontWeight.w400),
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
