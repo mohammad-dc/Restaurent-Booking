@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
+import 'package:email_validator/email_validator.dart';
 
 class AdminLogin extends StatefulWidget {
   @override
@@ -7,13 +8,18 @@ class AdminLogin extends StatefulWidget {
 }
 
 class _AdminLoginState extends State<AdminLogin> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Directionality(
+    return Scaffold(
+      body: Directionality(
         textDirection: TextDirection.rtl,
         child: Container(
+          color: grayColormin,
+          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'حجوزات',
@@ -32,32 +38,79 @@ class _AdminLoginState extends State<AdminLogin> {
                     color: grayColormax,
                     fontFamily: 'Cairo',
                     fontWeight: FontWeight.w400,
-                    fontSize: 25.0),
+                    fontSize: 20.0),
               ),
               SizedBox(
                 height: 20.0,
               ),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'الايميل',
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      style: TextStyle(fontFamily: 'Cairo'),
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (email) {
+                        if (email.isEmpty) {
+                          return 'يجب ملئ هذا الحقل';
+                        } else if (!EmailValidator.validate(email)) {
+                          return 'يجب ادخال الايميل بشكل صحيح';
+                        }
+                      },
+                      obscureText: false,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                          border: OutlineInputBorder(),
+                          labelText: 'الايميل'),
+                    ),
+                    SizedBox(
+                      height: 15.0,
+                    ),
+                    TextFormField(
+                      style: TextStyle(fontFamily: 'Cairo'),
+                      keyboardType: TextInputType.visiblePassword,
+                      validator: (password) {
+                        if (password.isEmpty) {
+                          return 'يجب ملئ هذا الحقل';
+                        } else if (password.length < 8) {
+                          return 'يجب ادحال 8 خانات على الأقل';
+                        }
+                      },
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        border: OutlineInputBorder(),
+                        labelText: 'كلمة السر',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25.0,
+                    ),
+                    RaisedButton(
+                      color: gradientColor1,
+                      onPressed: () {
+                        if (_formKey.currentState.validate()) {
+                          print("");
+                        }
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 6.0, horizontal: 10.0),
+                        child: Text(
+                          'تسجيل الدخول',
+                          style: TextStyle(
+                            color: whiteColor,
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 15.0,
-              ),
-              TextField(
-                obscureText: false,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'كلمة السر',
-                ),
-              ),
-              SizedBox(
-                height: 25.0,
-              ),
-              RaisedButton(onPressed: null)
             ],
           ),
         ),

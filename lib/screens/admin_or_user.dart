@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
-import 'admin/login.dart';
-import 'user/signup.dart';
 import 'package:flutter_application_1/widgets/account_btn.dart';
 
 class AdminOrUser extends StatefulWidget {
@@ -40,9 +38,9 @@ class _AdminOrUserState extends State<AdminOrUser> {
                   color: grayColormax),
             ),
             SizedBox(height: 20.0),
-            AccountBtn(text: 'مسؤول', navigatorPage: AdminLogin()),
+            AccountBtn(text: 'مسؤول', navigatorPageRoute: '/admin/login'),
             SizedBox(height: 30.0),
-            AccountBtn(text: 'مستخدم', navigatorPage: SignUp()),
+            AccountBtn(text: 'مستخدم', navigatorPageRoute: '/user/signup'),
           ],
         ),
       ),

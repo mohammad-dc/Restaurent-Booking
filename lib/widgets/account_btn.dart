@@ -3,15 +3,12 @@ import 'package:flutter_application_1/constants/colors.dart';
 
 class AccountBtn extends StatelessWidget {
   final String text;
-  final Widget navigatorPage;
-  AccountBtn({this.text, this.navigatorPage});
+  final String navigatorPageRoute;
+  AccountBtn({this.text, this.navigatorPageRoute});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: () => {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => navigatorPage))
-      },
+      onPressed: () => {Navigator.of(context).pushNamed(navigatorPageRoute)},
       textColor: whiteColor,
       padding: const EdgeInsets.all(0.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
