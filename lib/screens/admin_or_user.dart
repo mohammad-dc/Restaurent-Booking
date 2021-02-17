@@ -40,7 +40,7 @@ class _AdminOrUserState extends State<AdminOrUser> {
                   color: grayColormax),
             ),
             SizedBox(height: 20.0),
-            AccountBtn(text: 'مسؤول', navigatorPage: Login()),
+            AccountBtn(text: 'مسؤول', navigatorPage: AdminLogin()),
             SizedBox(height: 30.0),
             AccountBtn(text: 'مستخدم', navigatorPage: SignUp()),
           ],

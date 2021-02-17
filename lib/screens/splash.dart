@@ -15,10 +15,8 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AdminOrUser())));
+    Timer(Duration(seconds: 3),
+        () => Navigator.of(context).pushNamed('/admin-or-user'));
   }
 
   @override
@@ -30,7 +28,7 @@ class _SplashState extends State<Splash> {
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [gradientColor1, gradientColor2, gradientColor3])),
+                  colors: [gradientColor1, gradientColor2])),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

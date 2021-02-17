@@ -30,7 +30,7 @@ class AccountBtn extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [gradientColor1, gradientColor3]),
+              colors: [gradientColor1, gradientColor2]),
         ),
       ),
     );

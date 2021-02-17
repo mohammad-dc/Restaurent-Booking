@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/splash.dart';
+import 'package:flutter_application_1/routes/genaretor_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Splash(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generatorRoute,
     );
   }
 }

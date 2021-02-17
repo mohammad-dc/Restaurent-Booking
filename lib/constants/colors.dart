@@ -1,9 +1,8 @@
 import 'dart:ui';
 
 // git gradient color
-const Color gradientColor1 = Color(0xFF86A8E7);
-const Color gradientColor2 = Color(0xFF5FFBF1);
-const Color gradientColor3 = Color(0xFFD16BA5);
+const Color gradientColor1 = Color(0xFF1565C0);
+const Color gradientColor2 = Color(0xFFB92B27);
 
 // global colors
 const Color whiteColor = Color(0xFFFFFFFF);
