@@ -91,7 +91,7 @@ class _UserLoginState extends State<UserLogin> {
                       color: gradientColor1,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          Navigator.of(context).pushNamed('/admin/dashboard');
+                          Navigator.of(context).pushNamed('/user/dashboard');
                         }
                       },
                       child: Padding(
