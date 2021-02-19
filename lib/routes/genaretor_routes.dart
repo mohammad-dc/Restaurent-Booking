@@ -17,6 +17,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AdminTabsRoot());
       case '/user/signup':
         return MaterialPageRoute(builder: (_) => SignUp());
+      case '/user/login':
+        return MaterialPageRoute(builder: (_) => UserLogin());
     }
   }
 }
