@@ -91,7 +91,7 @@ class _AdminLoginState extends State<AdminLogin> {
                       color: gradientColor1,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          print("");
+                          Navigator.of(context).pushNamed('/admin/dashboard');
                         }
                       },
                       child: Padding(

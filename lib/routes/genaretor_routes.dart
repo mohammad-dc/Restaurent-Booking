@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/admin/admin_tabs_root.dart';
 import 'package:flutter_application_1/screens/screens.dart';
 
 class RouteGenerator {
@@ -12,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => AdminOrUser());
       case '/admin/login':
         return MaterialPageRoute(builder: (_) => AdminLogin());
+      case '/admin/dashboard':
+        return MaterialPageRoute(builder: (_) => AdminTabsRoot());
       case '/user/signup':
         return MaterialPageRoute(builder: (_) => SignUp());
     }
