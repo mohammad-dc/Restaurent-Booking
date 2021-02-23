@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter_application_1/controllers/admin.dart';
+import 'package:flutter_application_1/models/admin.dart';
 
 class AdminLogin extends StatefulWidget {
   @override
@@ -9,6 +11,10 @@ class AdminLogin extends StatefulWidget {
 
 class _AdminLoginState extends State<AdminLogin> {
   final _formKey = GlobalKey<FormState>();
+  final email_controller = TextEditingController();
+  final password_controller = TextEditingController();
+  Future<Admin> _futureAdmin;
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +54,7 @@ class _AdminLoginState extends State<AdminLogin> {
                 child: Column(
                   children: [
                     TextFormField(
+                      controller: email_controller,
                       style: TextStyle(fontFamily: 'Cairo'),
                       keyboardType: TextInputType.emailAddress,
                       validator: (email) {
@@ -68,6 +75,7 @@ class _AdminLoginState extends State<AdminLogin> {
                       height: 15.0,
                     ),
                     TextFormField(
+                      controller: password_controller,
                       style: TextStyle(fontFamily: 'Cairo'),
                       keyboardType: TextInputType.visiblePassword,
                       validator: (password) {
@@ -91,7 +99,15 @@ class _AdminLoginState extends State<AdminLogin> {
                       color: gradientColor1,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          Navigator.of(context).pushNamed('/admin/dashboard');
+                          setState(() {
+                            _futureAdmin = adminLogin(email_controller.text, password_controller.text);
+                            isLoading = false;
+                          });
+                          if(isLoading){
+                            Navigator.of(context).pushNamed('/admin/dashboard');
+                          } else {
+                            CircularProgressIndicator();
+                          }
                         }
                       },
                       child: Padding(
