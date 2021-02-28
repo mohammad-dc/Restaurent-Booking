@@ -2,7 +2,7 @@ class Admin {
   String token;
   String message;
   bool success;
-  List admin;
+  Map<String, dynamic> admin;
 
   Admin({this.token, this.message, this.success, this.admin});
 

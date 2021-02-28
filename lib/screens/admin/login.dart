@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter_application_1/controllers/admin.dart';
-import 'package:flutter_application_1/models/admin.dart';
+import 'package:flutter_application_1/widgets/toast.dart';
 
 class AdminLogin extends StatefulWidget {
   @override
@@ -10,11 +10,13 @@ class AdminLogin extends StatefulWidget {
 }
 
 class _AdminLoginState extends State<AdminLogin> {
+  //variabels
   final _formKey = GlobalKey<FormState>();
   final email_controller = TextEditingController();
   final password_controller = TextEditingController();
-  Future<Admin> _futureAdmin;
-  bool isLoading = true;
+  Future<dynamic> _futureAdmin;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,21 +101,19 @@ class _AdminLoginState extends State<AdminLogin> {
                       color: gradientColor1,
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
+                          isLoading = true;
                           setState(() {
                             _futureAdmin = adminLogin(email_controller.text, password_controller.text);
                             isLoading = false;
                           });
-                          if(isLoading){
-                            Navigator.of(context).pushNamed('/admin/dashboard');
-                          } else {
-                            CircularProgressIndicator();
-                          }
                         }
                       },
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 6.0, horizontal: 10.0),
-                        child: Text(
+                        child: isLoading? CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(whiteColor),
+                        ):  Text(
                           'تسجيل الدخول',
                           style: TextStyle(
                             color: whiteColor,
@@ -123,6 +123,24 @@ class _AdminLoginState extends State<AdminLogin> {
                           ),
                         ),
                       ),
+                    ),
+                    FutureBuilder<dynamic>(
+                      future: _futureAdmin,
+                      builder: (context, snapshot){
+                        if(snapshot.hasData){
+                          if(snapshot.data.success){
+                            showToast(snapshot.data.message, greenColor);
+                            Navigator.of(context).pushNamed('/admin/dashboard');
+                          } else {
+                            showToast(snapshot.data.message, redColor);
+                          }
+                          
+                        } else if(snapshot.hasError){
+                          print(snapshot.error);
+                            return Container();
+                        }
+                        return Container();
+                      },
                     )
                   ],
                 ),

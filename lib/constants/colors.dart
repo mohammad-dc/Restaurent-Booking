@@ -9,3 +9,5 @@ const Color whiteColor = Color(0xFFFFFFFF);
 const Color grayColormin = Color(0xFFEEEEEE);
 const Color blackColor = Color(0xFF434343);
 const Color grayColormax = Color(0xFFAAAAAA);
+const Color redColor = Color(0xFFE74C3C);
+const Color greenColor = Color(0xFF69F0AE);
