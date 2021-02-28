@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:flutter_application_1/config/config.dart';
-import 'package:flutter_application_1/models/admin.dart';
+import 'package:flutter_application_1/models/adminLogin.dart';
 import 'package:flutter_application_1/models/error.dart';
 import 'dart:convert';
 
