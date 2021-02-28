@@ -15,7 +15,7 @@ Future<dynamic> adminLogin(email, password) async{
   })); 
   if(response.statusCode == 200){
     signToStorage('adminToken', jsonDecode(response.body)['token']);
-    return Admin.fromJson(jsonDecode(response.body));
+    return AdminLogin.fromJson(jsonDecode(response.body));
   } else if(response.statusCode == 401 || response.statusCode == 500){
     return Error.fromJson(jsonDecode(response.body));
   } else {

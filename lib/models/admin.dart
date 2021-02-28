@@ -1,13 +1,13 @@
-class Admin {
+class AdminLogin {
   String token;
   String message;
   bool success;
   Map<String, dynamic> admin;
 
-  Admin({this.token, this.message, this.success, this.admin});
+  AdminLogin({this.token, this.message, this.success, this.admin});
 
-  factory Admin.fromJson(Map<String, dynamic> json){
-    return Admin(
+  factory AdminLogin.fromJson(Map<String, dynamic> json){
+    return AdminLogin(
       token: json['token'],
       message: json['message'],
       success: json['success'],
