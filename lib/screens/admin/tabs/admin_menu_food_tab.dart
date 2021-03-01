@@ -4,6 +4,7 @@ import 'package:flutter_application_1/widgets/menu_item.dart';
 import 'package:flutter_application_1/controllers/menu_food.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
 import 'package:flutter_application_1/widgets/no_data.dart';
+import 'package:flutter_application_1/widgets/dialogs/admin/admin_food_add.dart';
 
 class AdminMenuFoodTab extends StatefulWidget {
   @override
@@ -77,7 +78,13 @@ class _AdminMenuFoodTabState extends State<AdminMenuFoodTab> {
                     icon: Icon(Icons.add_circle),
                     tooltip: 'اضافة وحبة للقائمة',
                     onPressed: () {
-                      
+                       showGeneralDialog(context: context,
+                        barrierColor: whiteColor,
+                        barrierDismissible: true,
+                        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                         pageBuilder: (BuildContext context, Animation first, Animation second){
+                           return AdminAddMenuFoodDialog();
+                         });
                     },
                     color: grayColormax,
                   ),

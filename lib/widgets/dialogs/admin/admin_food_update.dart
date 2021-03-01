@@ -92,7 +92,7 @@ class _AdminUpdateMenuFoodDialogState extends State<AdminUpdateMenuFoodDialog> {
                               return 'يجب ملئ هذا الحقل';
                             }
                           },
-                          obscureText: true,
+                          obscureText: false,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.monetization_on),
                             border: OutlineInputBorder(),
