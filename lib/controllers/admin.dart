@@ -43,3 +43,27 @@ Future<dynamic> fetchAdmin() async{
     return Exception('حدث خطأ في العملية : ${response.toString()}');
   }
 }
+
+// update admin
+Future<dynamic> updateAdmin(_id, email, password, name, address, image) async {
+  String token = await SharedPreferencesHelper.getStorageData('adminToken');
+  final response = await http.put('$URL_ADMIN/update/$_id', headers: <String, String>{
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  }, body: jsonEncode(<String, String>{
+    'email': email,
+    'password': password,
+    'name': name,
+    'address': address,
+    'image': image
+  }));
+
+  if(response.statusCode == 200){
+    return Admin.fromJson(jsonDecode(response.body));
+  }
+  else if (response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
+    return Error.fromJson(jsonDecode(response.body));
+  } else {
+    return Exception('حدث خطأ في العملية : ${response.toString()}');
+  }
+}

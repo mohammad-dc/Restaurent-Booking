@@ -3,6 +3,7 @@ import 'package:flutter_application_1/constants/colors.dart';
 import 'package:flutter_application_1/widgets/icon_text.dart';
 import 'package:flutter_application_1/controllers/admin.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
+import 'package:flutter_application_1/widgets/dialogs/dialogs.dart';
 
 class AdminDashboardTab extends StatefulWidget {
   @override
@@ -72,8 +73,16 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
                           fontSize: 25.0),
                     ),
                     IconButton(
-                      icon: Icon(Icons.more_vert),
-                      onPressed: () {},
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        showGeneralDialog(context: context,
+                        barrierColor: whiteColor,
+                        barrierDismissible: true,
+                        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                         pageBuilder: (BuildContext context, Animation first, Animation second){
+                           return AdminDataUpdateDialog(initData: mapAdminData);
+                         });
+                      },
                       color: grayColormax,
                     )
                   ],
