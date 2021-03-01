@@ -134,7 +134,6 @@ class _AdminUpdateMenuFoodDialogState extends State<AdminUpdateMenuFoodDialog> {
                               
                             } else if(snapshot.hasError){
                               print(snapshot.error);
-                                return Container();
                             }
                             return Container();
                           },

@@ -123,7 +123,6 @@ class _AdminAddMenuFoodDialogState extends State<AdminAddMenuFoodDialog> {
                           builder: (context, snapshot){
                             if(snapshot.hasData){
                               if(snapshot.data.success){
-                                print(snapshot.data.success);
                                 showToast(snapshot.data.message, greenColor);
                               } else {
                                 showToast(snapshot.data.message, redColor);
@@ -131,7 +130,6 @@ class _AdminAddMenuFoodDialogState extends State<AdminAddMenuFoodDialog> {
                               
                             } else if(snapshot.hasError){
                               print(snapshot.error);
-                                return Container();
                             }
                             return Container();
                           },

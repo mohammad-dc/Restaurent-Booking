@@ -12,7 +12,6 @@ Future<dynamic> fethcMenuFood() async{
     'Authorization': 'Bearer $token'
   });
   if(response.statusCode == 200){
-    print(jsonDecode(response.body));
     return MenuFood.fromJson(jsonDecode(response.body));
   }
   else if (response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
@@ -25,7 +24,7 @@ Future<dynamic> fethcMenuFood() async{
 // add menu food
 Future<dynamic> addMenuFood(name, price, image) async{
   String token = await SharedPreferencesHelper.getStorageData('adminToken');
-  final response = await http.post('$URL_ADMIN_MENU_FOOD/create', headers: <String, String>{
+  final response = await http.post('$URL_ADMIN_MENU_FOOD/add', headers: <String, String>{
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   },
@@ -34,9 +33,9 @@ Future<dynamic> addMenuFood(name, price, image) async{
     'price': price,
     'image': image
   })); 
-  if(response.statusCode == 200){
+  if(response.statusCode == 201){
     return MenuFood.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
