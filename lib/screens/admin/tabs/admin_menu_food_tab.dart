@@ -92,7 +92,7 @@ class _AdminMenuFoodTabState extends State<AdminMenuFoodTab> {
               ),
               isData?
               Column(
-                children: menuList.map((e) => MenuItem(foodName: e['name'], price: e['price'].toDouble(), image: e['image'],)).toList()
+                children: menuList.map((e) => MenuItem(id: e['_id'], foodName: e['name'], price: e['price'].toDouble(), image: e['image'],)).toList()
               ): NoData(text: 'لا يوجد قائمة طعام للان !!!',)
             ],
           ),

@@ -66,13 +66,12 @@ Future<dynamic> updateMenuFood(_id, name, price, image) async{
 // delete menu food
 Future<dynamic> deleteMenuFood(_id) async{
   String token = await SharedPreferencesHelper.getStorageData('adminToken');
-  final response = await http.put('$URL_ADMIN_MENU_FOOD/delete/$_id', headers: <String, String>{
-    'Content-Type': 'application/json',
+  final response = await http.delete('$URL_ADMIN_MENU_FOOD/delete/$_id', headers: <String, String>{
     'Authorization': 'Bearer $token'
   }); 
   if(response.statusCode == 200){
     return MenuFood.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
