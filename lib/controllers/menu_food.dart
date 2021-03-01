@@ -12,6 +12,7 @@ Future<dynamic> fethcMenuFood() async{
     'Authorization': 'Bearer $token'
   });
   if(response.statusCode == 200){
+    print(jsonDecode(response.body));
     return MenuFood.fromJson(jsonDecode(response.body));
   }
   else if (response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
