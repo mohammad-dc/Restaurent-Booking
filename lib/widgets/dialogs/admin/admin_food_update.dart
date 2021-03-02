@@ -4,8 +4,11 @@ import 'package:flutter_application_1/controllers/menu_food.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
 
 class AdminUpdateMenuFoodDialog extends StatefulWidget {
-    final Map<String, dynamic> initData;
-    AdminUpdateMenuFoodDialog({@required this.initData});
+    final String id;
+    final String name;
+    final double price;
+    final String image;
+    AdminUpdateMenuFoodDialog({this.id, this.name, this.image, this.price});
   @override
   _AdminUpdateMenuFoodDialogState createState() => _AdminUpdateMenuFoodDialogState();
 }
@@ -20,9 +23,9 @@ class _AdminUpdateMenuFoodDialogState extends State<AdminUpdateMenuFoodDialog> {
   @override
   void initState(){
     super.initState();
-    name_controller = new TextEditingController(text:widget.initData['name']);
-    price_controller = new TextEditingController(text:widget.initData['price']);
-    image_controller = new TextEditingController(text:widget.initData['image']);
+    name_controller = new TextEditingController(text:widget.name);
+    price_controller = new TextEditingController(text:widget.price.toString());
+    image_controller = new TextEditingController(text:widget.image);
   }
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class _AdminUpdateMenuFoodDialogState extends State<AdminUpdateMenuFoodDialog> {
                   isLoading = true;
                   setState(() {
                     _futureMenuFood = updateMenuFood(
-                    widget.initData['_id'],
+                    widget.id,
                     name_controller.text,
                     price_controller.text,
                     image_controller.text);

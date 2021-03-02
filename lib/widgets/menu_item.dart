@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 import 'package:flutter_application_1/controllers/menu_food.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
+import 'package:flutter_application_1/widgets/dialogs/admin/admin_food_update.dart';
 
 class MenuItem extends StatefulWidget {
   String id;
@@ -100,7 +101,15 @@ class _MenuItemState extends State<MenuItem> {
                       size: 25,
                       color: grayColormax,
                     ),
-                    onPressed: () {}),
+                    onPressed: () {
+                       showGeneralDialog(context: context,
+                        barrierColor: whiteColor,
+                        barrierDismissible: true,
+                        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                         pageBuilder: (BuildContext context, Animation first, Animation second){
+                           return AdminUpdateMenuFoodDialog(id: widget.id, name: widget.foodName, price: widget.price, image: widget.image,);
+                         });
+                    }),
                 IconButton(
                     icon: Icon(
                       Icons.delete,
