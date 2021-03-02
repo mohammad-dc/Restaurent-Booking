@@ -25,7 +25,7 @@ class _OrderItemUserState extends State<OrderItemUser> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    borderColor = grayColormax;
+    borderColor = widget.is_canceled? redColor : grayColormax;
   }
   @override
   Widget build(BuildContext context) {
