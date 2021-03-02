@@ -16,6 +16,7 @@ Future<dynamic> userLogin(email, password) async{
   })); 
   if(response.statusCode == 200){
     SharedPreferencesHelper.signToStorage('userToken', jsonDecode(response.body)['token']);
+    SharedPreferencesHelper.signToStorage('userID', jsonDecode(response.body)['user']['_id']);
     return User.fromJson(jsonDecode(response.body));
   } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
@@ -73,6 +74,22 @@ Future<dynamic> userUpdate(_id, email, password, first_name, last_name, mobile, 
 Future<dynamic> fetchNotifications(_id) async{
   String token = await SharedPreferencesHelper.getStorageData('userToken');
   final response = await http.get('$URL_USER/get-notificatios/$_id', headers: <String, String>{
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
+  }); 
+  if(response.statusCode == 200){
+    return User.fromJson(jsonDecode(response.body));
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
+    return Error.fromJson(jsonDecode(response.body));
+  } else {
+    return Exception('حدث خطأ في العملية : ${response.toString()}');
+  }
+}
+
+Future<dynamic> fetchUser() async {
+  String token = await SharedPreferencesHelper.getStorageData('userToken');
+  String _id = await SharedPreferencesHelper.getStorageData('userID');
+  final response = await http.get('$URL_USER/get/$_id', headers: <String, String>{
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   }); 
