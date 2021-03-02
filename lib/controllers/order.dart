@@ -31,16 +31,13 @@ Future<dynamic> addOrder(menu_food_id, total_price, quantity, in_or_not) async{
 }
 
 //edit order
-Future<dynamic> updateOrder(_id, menu_food_id, total_price, quantity, in_or_not) async{
+Future<dynamic> updateOrder(_id, total_price, quantity, in_or_not) async{
   String token = await SharedPreferencesHelper.getStorageData('userToken');
-  String user_id = await SharedPreferencesHelper.getStorageData('userID');
   final response = await http.put('$URL_USER_ORDER/update/$_id', headers: <String, String>{
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   },
-  body: jsonEncode(<String, String>{
-    'menu_food_id': menu_food_id,
-    'user_id': user_id,
+  body: jsonEncode(<String, dynamic>{
     'total_price': total_price,
     'quantity': quantity,
     'in_or_not': in_or_not

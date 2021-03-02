@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 import 'package:flutter_application_1/controllers/order.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
+import 'package:flutter_application_1/widgets/dialogs/dialogs.dart';
 
 class OrderItemUser extends StatefulWidget {
   String id;
@@ -10,7 +11,8 @@ class OrderItemUser extends StatefulWidget {
   String image;
   int quantity;
   bool is_canceled;
-  OrderItemUser({this.id, this.foodName, this.price, this.image, this.quantity, this.is_canceled});
+  bool in_or_out;
+  OrderItemUser({this.id, this.foodName, this.price, this.image, this.quantity, this.is_canceled, this.in_or_out});
 
 
   @override
@@ -26,6 +28,7 @@ class _OrderItemUserState extends State<OrderItemUser> {
     // TODO: implement initState
     super.initState();
     borderColor = widget.is_canceled? redColor : grayColormax;
+        print(widget.in_or_out);
   }
   @override
   Widget build(BuildContext context) {
@@ -114,7 +117,18 @@ class _OrderItemUserState extends State<OrderItemUser> {
                     size: 25,
                     color: grayColormax,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                   widget.is_canceled?
+                   showToast('لا يمكن التعديل على طلب تم الغاؤه مسبقا', redColor)
+                   :
+                    showGeneralDialog(context: context,
+                      barrierColor: whiteColor,
+                      barrierDismissible: true,
+                      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                      pageBuilder: (BuildContext context, Animation first, Animation second){
+                        return UserUpdateOrderDialog(id: widget.id, name: widget.foodName, price: widget.price, image: widget.image, quantity: widget.quantity, in_or_out: widget.in_or_out);
+                    });
+                  }),
               IconButton(
                   icon: Icon(
                     Icons.delete,

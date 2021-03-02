@@ -79,7 +79,8 @@ class _UserOrderTabState extends State<UserOrderTab> {
                   price: e['menu_food_id']['price'].toDouble(),
                   image: e['menu_food_id']['image'],
                   quantity: e['quantity'],
-                  is_canceled: e['is_canceled'])).toList()
+                  is_canceled: e['is_canceled'],
+                  in_or_out: e['in_or_not'],)).toList()
               ): NoData(text: 'لا يوجد قائمة طعام للان !!!',)
             ])
           ],
