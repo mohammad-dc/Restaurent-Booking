@@ -15,4 +15,13 @@ class SharedPreferencesHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
+
+  static Future<bool> checkIfExsist(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.containsKey(key)){
+    return true;
+    } else {
+    return false;
+    }
+  }
 }

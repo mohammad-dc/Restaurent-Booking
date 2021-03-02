@@ -137,7 +137,6 @@ class _AdminLoginState extends State<AdminLogin> {
                           
                         } else if(snapshot.hasError){
                           print(snapshot.error);
-                            return Container();
                         }
                         return Container();
                       },
