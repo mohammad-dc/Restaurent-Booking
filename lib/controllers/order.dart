@@ -11,6 +11,7 @@ Future<dynamic> addOrder(menu_food_id, total_price, quantity, in_or_not) async{
   String user_id = await SharedPreferencesHelper.getStorageData('userID');
   final response = await http.post('$URL_USER_ORDER/add', headers: <String, String>{
     'Content-Type': 'application/json',
+    'Authorization': 'Bearer $token'
   },
   body: jsonEncode(<String, dynamic>{
     'menu_food_id': menu_food_id,
@@ -108,11 +109,12 @@ Future<dynamic> setTimeOrders(_id) async{
 Future<dynamic> fetchUserOrders() async{
   String token = await SharedPreferencesHelper.getStorageData('userToken');
   String user_id = await SharedPreferencesHelper.getStorageData('userID');
-  final response = await http.put('$URL_USER_ORDER/get/$user_id', headers: <String, String>{
+  final response = await http.get('$URL_USER_ORDER/get/$user_id', headers: <String, String>{
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
   }); 
   if(response.statusCode == 200){
+    print(jsonDecode(response.body));
     return Order.fromJson(jsonDecode(response.body));
   } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));

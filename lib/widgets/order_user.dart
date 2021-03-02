@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 
 class OrderItemUser extends StatelessWidget {
+  String id;
   String foodName;
   double price;
   String image;
-  OrderItemUser({this.foodName, this.price, this.image});
+  int quantity;
+  OrderItemUser({this.id, this.foodName, this.price, this.image, this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class OrderItemUser extends StatelessWidget {
                         )
                       ],
                     ),
-                    Text('3x',
+                    Text(quantity.toString() + 'x',
                         style: TextStyle(
                             color: grayColormax,
                             fontSize: 15.0,
