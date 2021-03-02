@@ -17,7 +17,7 @@ Future<dynamic> userLogin(email, password) async{
   if(response.statusCode == 200){
     SharedPreferencesHelper.signToStorage('userToken', jsonDecode(response.body)['token']);
     return User.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
@@ -25,7 +25,7 @@ Future<dynamic> userLogin(email, password) async{
 }
 
 //register
-Future<dynamic> userRegister(email, password, first_name, last_name) async{
+Future<dynamic> userRegister(email, password, first_name, last_name, mobile) async{
   final response = await http.post('$URL_USER/register', headers: <String, String>{
     'Content-Type': 'application/json'
   },
@@ -33,11 +33,12 @@ Future<dynamic> userRegister(email, password, first_name, last_name) async{
     'email': email,
     'password': password,
     'first_name': first_name,
-    'last_name': last_name
+    'last_name': last_name,
+    'mobile': mobile
   })); 
-  if(response.statusCode == 200){
+  if(response.statusCode == 201){
     return User.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
@@ -45,7 +46,7 @@ Future<dynamic> userRegister(email, password, first_name, last_name) async{
 }
 
 //update
-Future<dynamic> userUpdate(_id, email, password, first_name, last_name) async{
+Future<dynamic> userUpdate(_id, email, password, first_name, last_name, mobile, image) async{
   String token = await SharedPreferencesHelper.getStorageData('userToken');
   final response = await http.put('$URL_USER/update/$_id', headers: <String, String>{
     'Content-Type': 'application/json',
@@ -55,11 +56,13 @@ Future<dynamic> userUpdate(_id, email, password, first_name, last_name) async{
     'email': email,
     'password': password,
     'first_name': first_name,
-    'last_name': last_name
+    'last_name': last_name,
+    'mobile': mobile,
+    'image': image
   })); 
   if(response.statusCode == 200){
     return User.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
@@ -75,7 +78,7 @@ Future<dynamic> fetchNotifications(_id) async{
   }); 
   if(response.statusCode == 200){
     return User.fromJson(jsonDecode(response.body));
-  } else if(response.statusCode == 401 || response.statusCode == 500){
+  } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
