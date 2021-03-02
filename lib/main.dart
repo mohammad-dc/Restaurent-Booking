@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/user/login',
+      initialRoute: '/user/dashboard',
       onGenerateRoute: RouteGenerator.generatorRoute,
     );
   }

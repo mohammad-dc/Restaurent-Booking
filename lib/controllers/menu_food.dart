@@ -6,9 +6,13 @@ import 'package:flutter_application_1/models/error.dart';
 import 'dart:convert';
 
 //fetch menu food
-Future<dynamic> fethcMenuFood() async{
-  String token = await SharedPreferencesHelper.getStorageData('adminToken');
-  final response = await http.get('$URL_ADMIN_MENU_FOOD/get', headers: <String, String>{
+Future<dynamic> fethcMenuFood(isAdmin) async{
+  String token = isAdmin? 
+    await SharedPreferencesHelper.getStorageData('adminToken')
+    : await SharedPreferencesHelper.getStorageData('userToken');
+  final response = await http.get(isAdmin?
+    '$URL_ADMIN_MENU_FOOD/get'
+    : '$URL_USER_MENU_FOOD/get', headers: <String, String>{
     'Authorization': 'Bearer $token'
   });
   if(response.statusCode == 200){

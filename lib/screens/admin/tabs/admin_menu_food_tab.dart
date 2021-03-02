@@ -20,7 +20,7 @@ class _AdminMenuFoodTabState extends State<AdminMenuFoodTab> {
   @override
   void initState(){
     super.initState();
-    _adminMenuFood = fethcMenuFood();
+    _adminMenuFood = fethcMenuFood(true);
   }
 
   @override

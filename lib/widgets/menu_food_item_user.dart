@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 
 class MenuItemUser extends StatelessWidget {
+  String id;
   String foodName;
   double price;
   String image;
-  MenuItemUser({this.foodName, this.price, this.image});
+  MenuItemUser({this.id, this.foodName, this.price, this.image});
 
   @override
   Widget build(BuildContext context) {
