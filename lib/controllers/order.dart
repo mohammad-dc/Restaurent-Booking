@@ -11,9 +11,8 @@ Future<dynamic> addOrder(menu_food_id, total_price, quantity, in_or_not) async{
   String user_id = await SharedPreferencesHelper.getStorageData('userID');
   final response = await http.post('$URL_USER_ORDER/add', headers: <String, String>{
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token'
   },
-  body: jsonEncode(<String, String>{
+  body: jsonEncode(<String, dynamic>{
     'menu_food_id': menu_food_id,
     'user_id': user_id,
     'total_price': total_price,
@@ -23,6 +22,7 @@ Future<dynamic> addOrder(menu_food_id, total_price, quantity, in_or_not) async{
   if(response.statusCode == 201){
     return Order.fromJson(jsonDecode(response.body));
   } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
+    print('ss');
     return Error.fromJson(jsonDecode(response.body));
   } else {
     return Exception('حدث خطأ في العملية : ${response.toString()}');

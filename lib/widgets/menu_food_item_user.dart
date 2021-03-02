@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
+import 'package:flutter_application_1/widgets/dialogs/dialogs.dart';
 
 class MenuItemUser extends StatelessWidget {
   String id;
@@ -70,7 +71,15 @@ class MenuItemUser extends StatelessWidget {
                 size: 25,
                 color: grayColormax,
               ),
-              onPressed: () {}),
+              onPressed: () {
+                 showGeneralDialog(context: context,
+                  barrierColor: whiteColor,
+                  barrierDismissible: true,
+                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                  pageBuilder: (BuildContext context, Animation first, Animation second){
+                    return UserAddOrderDialog(image: image, price: price, name: foodName, menu_food_id: id);
+                  });
+              }),
         ],
       ),
     );
