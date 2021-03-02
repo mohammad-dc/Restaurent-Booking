@@ -21,25 +21,12 @@ class _UserLoginState extends State<UserLogin> {
     super.initState();
     email_controller = new TextEditingController(text:'');
     password_controller = new TextEditingController(text:'');
+    isLoading = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _futureUser,
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          if(snapshot.data.success){
-            showToast(snapshot.data.message, greenColor);
-            Navigator.of(context).pushNamed('/user/dashboard');
-          } else {
-            showToast(snapshot.data.message, redColor);
-          }
-                          
-        } else if(snapshot.hasError){
-             print(snapshot.error);
-        }
-        return Scaffold(
+    return Scaffold(
         body: Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
@@ -145,6 +132,29 @@ class _UserLoginState extends State<UserLogin> {
                             ),
                           ),
                         ),
+                      ),
+                      FutureBuilder<dynamic>(
+                        future: _futureUser,
+                        builder: (context, snapshot){
+                          if(snapshot.hasData){
+                            if(snapshot.data.success){
+                              
+                                isLoading = true;
+                                 Future.delayed(Duration.zero, (){
+                                 Navigator.of(context).pushNamed('/user/dashboard');
+                                });
+                                showToast(snapshot.data.message, greenColor);
+                                isLoading = false;
+                              
+                           } else {
+                              showToast(snapshot.data.message, redColor);
+                            }
+                                            
+                          } else if(snapshot.hasError){
+                              print(snapshot.error);
+                          }
+                          return Container(height: 0,);
+                        }
                       )
                     ],
                   ),
@@ -154,8 +164,5 @@ class _UserLoginState extends State<UserLogin> {
           ),
         ),
       );
-      },
-        
-    );
   }
 }
