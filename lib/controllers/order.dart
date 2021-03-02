@@ -57,12 +57,12 @@ Future<dynamic> updateOrder(_id, menu_food_id, total_price, quantity, in_or_not)
 //cancel order
 Future<dynamic> cancelOrder(_id, is_canceled) async{
   String token = await SharedPreferencesHelper.getStorageData('userToken');
-  final response = await http.put('$URL_USER_ORDER/cansel/$_id', headers: <String, String>{
+  final response = await http.put('$URL_USER_ORDER/cancel/$_id', headers: <String, String>{
     'Content-Type': 'application/json',
     'Authorization': 'Bearer $token'
-  },
-  body: jsonEncode(<String, String>{
-    'is_canceled': is_canceled,
+  }, 
+  body: jsonEncode(<String, bool>{
+    'is_canceled': is_canceled
   })); 
   if(response.statusCode == 200){
     return Order.fromJson(jsonDecode(response.body));
@@ -114,7 +114,6 @@ Future<dynamic> fetchUserOrders() async{
     'Authorization': 'Bearer $token'
   }); 
   if(response.statusCode == 200){
-    print(jsonDecode(response.body));
     return Order.fromJson(jsonDecode(response.body));
   } else if(response.statusCode == 401 || response.statusCode == 400 || response.statusCode == 404){
     return Error.fromJson(jsonDecode(response.body));

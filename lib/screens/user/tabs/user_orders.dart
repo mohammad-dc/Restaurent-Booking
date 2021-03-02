@@ -35,8 +35,6 @@ class _UserOrderTabState extends State<UserOrderTab> {
       builder: (context, snapshot){
         if(snapshot.hasData){
           if(snapshot.data.success){
-            print(snapshot.data.success);
-            print(snapshot.data.orders);
              if(snapshot.data.count != 0){
               orderList = snapshot.data.orders;
               isData = true;
@@ -76,7 +74,12 @@ class _UserOrderTabState extends State<UserOrderTab> {
             ListView(shrinkWrap: true, children: [
                  isData?
               Column(
-                children: orderList.map((e) => OrderItemUser(id: e['_id'], foodName: e['menu_food_id']['name'], price: e['menu_food_id']['price'].toDouble(), image: e['menu_food_id']['image'], quantity: e['quantity'],)).toList()
+                children: orderList.map((e) => OrderItemUser(id: e['_id'],
+                  foodName: e['menu_food_id']['name'],
+                  price: e['menu_food_id']['price'].toDouble(),
+                  image: e['menu_food_id']['image'],
+                  quantity: e['quantity'],
+                  is_canceled: e['is_canceled'])).toList()
               ): NoData(text: 'لا يوجد قائمة طعام للان !!!',)
             ])
           ],
