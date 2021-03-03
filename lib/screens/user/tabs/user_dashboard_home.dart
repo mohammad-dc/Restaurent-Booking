@@ -4,6 +4,7 @@ import 'package:flutter_application_1/widgets/user_info.dart';
 import 'package:flutter_application_1/controllers/user.dart';
 import 'package:flutter_application_1/widgets/toast.dart';
 import 'package:flutter_application_1/widgets/dialogs/dialogs.dart';
+import 'package:flutter_application_1/config/storage.dart';
 
 class UserDashboardTab extends StatefulWidget {
   @override
@@ -14,6 +15,11 @@ class _UserDashboardTabState extends State<UserDashboardTab> {
   Future<dynamic> _futureUser;
   Map<String, dynamic> mapUserData;
   bool loading = true;
+
+  void goBack() async {
+    await SharedPreferencesHelper.removeFromStorage('userToken');
+    Navigator.pop(context);
+  }
 
   @override
   void initState() {
@@ -105,24 +111,35 @@ class _UserDashboardTabState extends State<UserDashboardTab> {
                               )
                             ],
                           ),
-                          IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              showGeneralDialog(
-                                  context: context,
-                                  barrierColor: whiteColor,
-                                  barrierDismissible: true,
-                                  barrierLabel:
-                                      MaterialLocalizations.of(context)
-                                          .modalBarrierDismissLabel,
-                                  pageBuilder: (BuildContext context,
-                                      Animation first, Animation second) {
-                                    return UserDataUpdateDialog(
-                                        initData: mapUserData);
-                                  });
-                            },
-                            color: grayColormax,
-                          )
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    showGeneralDialog(
+                                        context: context,
+                                        barrierColor: whiteColor,
+                                        barrierDismissible: true,
+                                        barrierLabel:
+                                            MaterialLocalizations.of(context)
+                                                .modalBarrierDismissLabel,
+                                        pageBuilder: (BuildContext context,
+                                            Animation first, Animation second) {
+                                          return UserDataUpdateDialog(
+                                              initData: mapUserData);
+                                        });
+                                  },
+                                  color: grayColormax,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.logout),
+                                  onPressed: () {
+                                    goBack();
+                                  },
+                                  color: grayColormax,
+                                )
+                              ])
                         ],
                       ),
                       SizedBox(

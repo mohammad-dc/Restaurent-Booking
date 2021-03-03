@@ -11,6 +11,11 @@ class SharedPreferencesHelper {
     }
   }
 
+  static removeFromStorage(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(key);
+  }
+
   static Future<String> getStorageData(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
@@ -18,10 +23,6 @@ class SharedPreferencesHelper {
 
   static Future<bool> checkIfExsist(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.containsKey(key)) {
-      return true;
-    } else {
-      return false;
-    }
+    return prefs.containsKey(key);
   }
 }

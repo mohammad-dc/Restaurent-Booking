@@ -39,9 +39,19 @@ class _AdminOrUserState extends State<AdminOrUser> {
                   color: grayColormax),
             ),
             SizedBox(height: 20.0),
-            AccountBtn(text: 'مسؤول', navigatorPageRoute: '/admin/login'),
+            AccountBtn(
+                text: 'مسؤول',
+                path: () async {
+                  Navigator.of(context).pushNamed('/admin/login');
+                }),
             SizedBox(height: 30.0),
-            AccountBtn(text: 'مستخدم', navigatorPageRoute: '/user/signup'),
+            AccountBtn(
+                text: 'مستخدم',
+                path: () async {
+                  await SharedPreferencesHelper.checkIfExsist('userToken')
+                      ? Navigator.of(context).pushNamed('/user/dashboard')
+                      : Navigator.of(context).pushNamed('/user/signup');
+                }),
           ],
         ),
       ),

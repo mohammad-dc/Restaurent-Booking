@@ -181,6 +181,21 @@ class _SignUpState extends State<SignUp> {
                           SizedBox(
                             height: 25.0,
                           ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushNamed('/user/login');
+                              },
+                              child: Text(
+                                'لدي حساب بالفعل؟',
+                                style: TextStyle(
+                                    fontSize: 13.0,
+                                    fontFamily: 'Cairo',
+                                    color: gradientColor1),
+                              ),
+                            ),
+                          ),
                           RaisedButton(
                             color: gradientColor1,
                             onPressed: () {

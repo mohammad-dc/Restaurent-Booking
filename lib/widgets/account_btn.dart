@@ -3,12 +3,12 @@ import 'package:flutter_application_1/constants/colors.dart';
 
 class AccountBtn extends StatelessWidget {
   final String text;
-  final String navigatorPageRoute;
-  AccountBtn({this.text, this.navigatorPageRoute});
+  final Function path;
+  AccountBtn({this.text, this.path});
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      onPressed: () => {Navigator.of(context).pushNamed(navigatorPageRoute)},
+      onPressed: () => {path()},
       textColor: whiteColor,
       padding: const EdgeInsets.all(0.0),
       child: Container(
