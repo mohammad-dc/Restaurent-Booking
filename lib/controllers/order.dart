@@ -3,6 +3,7 @@ import 'package:flutter_application_1/config/config.dart';
 import 'package:flutter_application_1/models/order.dart';
 import 'package:flutter_application_1/config/storage.dart';
 import 'package:flutter_application_1/models/error.dart';
+import 'package:intl/intl.dart';
 import 'dart:convert';
 
 //add order
@@ -97,13 +98,17 @@ Future<dynamic> fetchAllOrders() async {
 }
 
 //set tiem to order
-Future<dynamic> setTimeOrders(_id) async {
+Future<dynamic> setTimeOrders(order_id, time) async {
   String token = await SharedPreferencesHelper.getStorageData('adminToken');
-  final response = await http.put('$URL_USER_ORDER/set-time-notif/$_id',
+  DateTime date = DateTime.now();
+  String formattedDate = DateFormat('yyyy/MM/dd').format(date);
+  final response = await http.put('$URL_ADMIN_ORDER/set-time-notif/$order_id',
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
-      });
+      },
+      body: jsonEncode(
+          <String, dynamic>{'date': formattedDate, 'time_to_finish': time}));
   if (response.statusCode == 200) {
     return Order.fromJson(jsonDecode(response.body));
   } else if (response.statusCode == 401 ||

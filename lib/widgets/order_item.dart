@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
+import 'package:flutter_application_1/widgets/dialogs/dialogs.dart';
 
 class OrderItem extends StatefulWidget {
   final Map<String, dynamic> order;
@@ -57,24 +58,24 @@ class _OrderItemState extends State<OrderItem> {
               )
             ],
           ),
-          Row(
-            children: [
-              IconButton(
-                  icon: Icon(
-                    Icons.info,
-                    size: 25,
-                    color: grayColormax,
-                  ),
-                  onPressed: () {}),
-              IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    size: 25,
-                    color: grayColormax,
-                  ),
-                  onPressed: () {})
-            ],
-          )
+          IconButton(
+              icon: Icon(
+                Icons.info,
+                size: 25,
+                color: grayColormax,
+              ),
+              onPressed: () {
+                showGeneralDialog(
+                    context: context,
+                    barrierColor: whiteColor,
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    pageBuilder: (BuildContext context, Animation first,
+                        Animation second) {
+                      return AdminSetTimeToOrderDialog(order: widget.order);
+                    });
+              }),
         ],
       ),
     );
