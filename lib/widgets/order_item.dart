@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 
-class OrderItem extends StatelessWidget {
+class OrderItem extends StatefulWidget {
+  final Map<String, dynamic> order;
+  OrderItem({this.order});
+
+  @override
+  _OrderItemState createState() => _OrderItemState();
+}
+
+class _OrderItemState extends State<OrderItem> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +33,7 @@ class OrderItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(50.0),
                 child: Image.network(
-                  'https://topmeaning.com/english/images/img/EN/g/guy.jpg',
+                  widget.order['user_id']['image'],
                 ),
               ),
               Padding(
@@ -30,7 +43,9 @@ class OrderItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'همام صباح',
+                      widget.order['user_id']['first_name'] +
+                          ' ' +
+                          widget.order['user_id']['last_name'],
                       style: TextStyle(
                           color: blackColor,
                           fontSize: 15.0,

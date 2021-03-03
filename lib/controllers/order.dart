@@ -80,7 +80,7 @@ Future<dynamic> cancelOrder(_id, is_canceled) async {
 //get all orders
 Future<dynamic> fetchAllOrders() async {
   String token = await SharedPreferencesHelper.getStorageData('adminToken');
-  final response = await http.put('$URL_USER_ORDER/get',
+  final response = await http.get('$URL_ADMIN_ORDER/get',
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token'
