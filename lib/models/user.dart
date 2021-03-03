@@ -7,13 +7,12 @@ class User {
 
   User({this.token, this.message, this.success, this.user, this.users});
 
-  factory User.fromJson(Map<String, dynamic> json){
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      token: json['token'],
-      message: json['message'],
-      success: json['success'],
-      user: json['user'],
-      users: json['users']
-    );
+        token: json['token'],
+        message: json['message'],
+        success: json['success'],
+        user: json['user'],
+        users: json['users']);
   }
 }

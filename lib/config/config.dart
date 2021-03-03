@@ -7,5 +7,3 @@ const URL_ADMIN_MENU_FOOD = '$URL_ADMIN/menu-food';
 const URL_USER_MENU_FOOD = '$URL_USER/menu-food';
 const URL_ADMIN_ORDER = "$URL_ADMIN/order";
 const URL_USER_ORDER = "$URL_USER/order";
-
-

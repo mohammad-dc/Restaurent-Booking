@@ -17,13 +17,13 @@ class _UserOrderTabState extends State<UserOrderTab> {
   bool isData = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _futureOrder = fetchUserOrders();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     loading = true;
   }
@@ -32,61 +32,71 @@ class _UserOrderTabState extends State<UserOrderTab> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _futureOrder,
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          if(snapshot.data.success){
-             if(snapshot.data.count != 0){
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.success) {
+            if (snapshot.data.count != 0) {
               orderList = snapshot.data.orders;
               isData = true;
-            } else if(snapshot.data.count == 0){
+            } else if (snapshot.data.count == 0) {
               isData = false;
             }
-            loading = false; 
+            loading = false;
           } else {
-            if(snapshot.data.message == 'غير مسموح لك بالدخول!!!'){
+            if (snapshot.data.message == 'غير مسموح لك بالدخول!!!') {
               showToast(snapshot.data.message, redColor);
               Navigator.of(context).pushNamed('/user/login');
             }
             showToast(snapshot.data.message, redColor);
-            loading = false; 
+            loading = false;
           }
         }
-        if(snapshot.hasError){
+        if (snapshot.hasError) {
           print(snapshot.error);
         }
-        return loading? Center(
-          child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
-                        ),)
-                        :Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-        child: Column(
-          children: [
-            Text(
-              'طلباتي',
-              style: TextStyle(
-                  fontFamily: 'Cairo',
-                  fontWeight: FontWeight.bold,
-                  color: blackColor,
-                  fontSize: 25.0),
-            ),
-            ListView(shrinkWrap: true, children: [
-                 isData?
-              Column(
-                children: orderList.map((e) => OrderItemUser(id: e['_id'],
-                  foodName: e['menu_food_id']['name'],
-                  price: e['menu_food_id']['price'].toDouble(),
-                  image: e['menu_food_id']['image'],
-                  quantity: e['quantity'],
-                  is_canceled: e['is_canceled'],
-                  in_or_out: e['in_or_not'],)).toList()
-              ): NoData(text: 'لا يوجد قائمة طعام للان !!!',)
-            ])
-          ],
-        ),
-      ),
-    );
+        return loading
+            ? Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
+                ),
+              )
+            : Scaffold(
+                body: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        'طلباتي',
+                        style: TextStyle(
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.bold,
+                            color: blackColor,
+                            fontSize: 25.0),
+                      ),
+                      ListView(shrinkWrap: true, children: [
+                        isData
+                            ? Column(
+                                children: orderList
+                                    .map((e) => OrderItemUser(
+                                          id: e['_id'],
+                                          foodName: e['menu_food_id']['name'],
+                                          price: e['menu_food_id']['price']
+                                              .toDouble(),
+                                          image: e['menu_food_id']['image'],
+                                          quantity: e['quantity'],
+                                          is_canceled: e['is_canceled'],
+                                          in_or_out: e['in_or_not'],
+                                        ))
+                                    .toList())
+                            : NoData(
+                                text: 'لا يوجد قائمة طعام للان !!!',
+                              )
+                      ])
+                    ],
+                  ),
+                ),
+              );
       },
     );
   }

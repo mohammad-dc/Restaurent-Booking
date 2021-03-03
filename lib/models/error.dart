@@ -4,7 +4,7 @@ class Error {
 
   Error({this.success, this.message});
 
-  factory Error.fromJson(Map<String, dynamic> json){
+  factory Error.fromJson(Map<String, dynamic> json) {
     return Error(
       message: json['message'],
       success: json['success'],

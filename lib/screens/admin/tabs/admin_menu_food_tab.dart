@@ -18,87 +18,102 @@ class _AdminMenuFoodTabState extends State<AdminMenuFoodTab> {
   bool isData = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _adminMenuFood = fethcMenuFood(true);
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     loading = true;
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _adminMenuFood,
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          if(snapshot.data.success){
-            if(snapshot.data.count != 0){
-              menuList = snapshot.data.menu;
-              isData = true;
-            } else if(snapshot.data.count == 0){
-              isData = false;
-            }
-            loading = false;
-          } else {
-            if(snapshot.data.message == 'غير مسموح لك بالدخول!!!'){
+        future: _adminMenuFood,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.success) {
+              if (snapshot.data.count != 0) {
+                menuList = snapshot.data.menu;
+                isData = true;
+              } else if (snapshot.data.count == 0) {
+                isData = false;
+              }
+              loading = false;
+            } else {
+              if (snapshot.data.message == 'غير مسموح لك بالدخول!!!') {
+                showToast(snapshot.data.message, redColor);
+                //Navigator.of(context).pushNamed('/admin/login');
+              }
               showToast(snapshot.data.message, redColor);
-              //Navigator.of(context).pushNamed('/admin/login');
             }
-            showToast(snapshot.data.message, redColor);
           }
-        }
-        if(snapshot.hasError){
-          showToast(snapshot.error, redColor);
-        }
-        return loading? Center(
-          child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
-                        ),)
-                        : 
-                        Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'قائمة الطعام',
-                    style: TextStyle(
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.bold,
-                        color: blackColor,
-                        fontSize: 25.0),
+          if (snapshot.hasError) {
+            showToast(snapshot.error, redColor);
+          }
+          return loading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.add_circle),
-                    tooltip: 'اضافة وحبة للقائمة',
-                    onPressed: () {
-                       showGeneralDialog(context: context,
-                        barrierColor: whiteColor,
-                        barrierDismissible: true,
-                        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                         pageBuilder: (BuildContext context, Animation first, Animation second){
-                           return AdminAddMenuFoodDialog();
-                         });
-                    },
-                    color: grayColormax,
+                )
+              : Scaffold(
+                  body: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'قائمة الطعام',
+                              style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.bold,
+                                  color: blackColor,
+                                  fontSize: 25.0),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.add_circle),
+                              tooltip: 'اضافة وحبة للقائمة',
+                              onPressed: () {
+                                showGeneralDialog(
+                                    context: context,
+                                    barrierColor: whiteColor,
+                                    barrierDismissible: true,
+                                    barrierLabel:
+                                        MaterialLocalizations.of(context)
+                                            .modalBarrierDismissLabel,
+                                    pageBuilder: (BuildContext context,
+                                        Animation first, Animation second) {
+                                      return AdminAddMenuFoodDialog();
+                                    });
+                              },
+                              color: grayColormax,
+                            ),
+                          ],
+                        ),
+                        isData
+                            ? Column(
+                                children: menuList
+                                    .map((e) => MenuItem(
+                                          id: e['_id'],
+                                          foodName: e['name'],
+                                          price: e['price'].toDouble(),
+                                          image: e['image'],
+                                        ))
+                                    .toList())
+                            : NoData(
+                                text: 'لا يوجد قائمة طعام للان !!!',
+                              )
+                      ],
+                    ),
                   ),
-                ],
-              ),
-              isData?
-              Column(
-                children: menuList.map((e) => MenuItem(id: e['_id'], foodName: e['name'], price: e['price'].toDouble(), image: e['image'],)).toList()
-              ): NoData(text: 'لا يوجد قائمة طعام للان !!!',)
-            ],
-          ),
-        ),
-      );
-      }
-    );
+                );
+        });
   }
 }

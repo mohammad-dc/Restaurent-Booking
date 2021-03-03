@@ -16,92 +16,100 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
   bool loading = true;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _adminData = fetchAdmin();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     loading = true;
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _adminData,
-      builder: (context, snapshot){
-        if(snapshot.hasData){
-          if(snapshot.data.success){
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.success) {
             mapAdminData = snapshot.data.admin;
-            loading = false; 
+            loading = false;
           } else {
-            if(snapshot.data.message == 'غير مسموح لك بالدخول!!!'){
+            if (snapshot.data.message == 'غير مسموح لك بالدخول!!!') {
               showToast(snapshot.data.message, redColor);
               Navigator.of(context).pushNamed('/admin/login');
             }
             showToast(snapshot.data.message, redColor);
           }
         }
-        if(snapshot.hasError){
+        if (snapshot.hasError) {
           showToast(snapshot.error, redColor);
         }
-        return loading? Center(
-          child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
-                        ),) :
-        Scaffold(
-        body: Column(
-          children: [
-            Image.network(
-              mapAdminData['image'],
-              width: double.infinity,
-              fit: BoxFit.fill,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return loading
+            ? Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(gradientColor1),
+                ),
+              )
+            : Scaffold(
+                body: Column(
                   children: [
-                    Text(
-                      mapAdminData['name'],
-                      style: TextStyle(
-                          fontFamily: 'Cairo',
-                          fontWeight: FontWeight.bold,
-                          color: blackColor,
-                          fontSize: 25.0),
+                    Image.network(
+                      mapAdminData['image'],
+                      width: double.infinity,
+                      fit: BoxFit.fill,
                     ),
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        showGeneralDialog(context: context,
-                        barrierColor: whiteColor,
-                        barrierDismissible: true,
-                        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                         pageBuilder: (BuildContext context, Animation first, Animation second){
-                           return AdminDataUpdateDialog(initData: mapAdminData);
-                         });
-                      },
-                      color: grayColormax,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 20.0, horizontal: 10.0),
+                      child: Column(children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              mapAdminData['name'],
+                              style: TextStyle(
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.bold,
+                                  color: blackColor,
+                                  fontSize: 25.0),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                showGeneralDialog(
+                                    context: context,
+                                    barrierColor: whiteColor,
+                                    barrierDismissible: true,
+                                    barrierLabel:
+                                        MaterialLocalizations.of(context)
+                                            .modalBarrierDismissLabel,
+                                    pageBuilder: (BuildContext context,
+                                        Animation first, Animation second) {
+                                      return AdminDataUpdateDialog(
+                                          initData: mapAdminData);
+                                    });
+                              },
+                              color: grayColormax,
+                            )
+                          ],
+                        ),
+                        IconText(
+                          text: mapAdminData['address'],
+                          icon: Icon(Icons.location_on_rounded),
+                        ),
+                        Image.asset(
+                          'assets/images/admin.png',
+                          height: 170,
+                        )
+                      ]),
                     )
                   ],
                 ),
-                IconText(
-                  text: mapAdminData['address'],
-                  icon: Icon(Icons.location_on_rounded),
-                ),
-                Image.asset(
-                  'assets/images/admin.png',
-                  height: 170,
-                )
-              ]),
-            )
-          ],
-        ),
-      );
+              );
       },
-          
     );
   }
 }

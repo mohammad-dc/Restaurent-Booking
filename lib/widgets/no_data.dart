@@ -12,15 +12,12 @@ class NoData extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(width: .5, color: grayColormin),
         borderRadius: BorderRadius.circular(5.0),
-        color: grayColormin, 
+        color: grayColormin,
       ),
       child: Text(
         text,
-        style: TextStyle(
-          color: blackColor,
-          fontFamily: 'Cairo',
-          fontSize: 15.0
-        ),
+        style:
+            TextStyle(color: blackColor, fontFamily: 'Cairo', fontSize: 15.0),
       ),
     );
   }

@@ -72,13 +72,20 @@ class MenuItemUser extends StatelessWidget {
                 color: grayColormax,
               ),
               onPressed: () {
-                 showGeneralDialog(context: context,
-                  barrierColor: whiteColor,
-                  barrierDismissible: true,
-                  barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                  pageBuilder: (BuildContext context, Animation first, Animation second){
-                    return UserAddOrderDialog(image: image, price: price, name: foodName, menu_food_id: id);
-                  });
+                showGeneralDialog(
+                    context: context,
+                    barrierColor: whiteColor,
+                    barrierDismissible: true,
+                    barrierLabel: MaterialLocalizations.of(context)
+                        .modalBarrierDismissLabel,
+                    pageBuilder: (BuildContext context, Animation first,
+                        Animation second) {
+                      return UserAddOrderDialog(
+                          image: image,
+                          price: price,
+                          name: foodName,
+                          menu_food_id: id);
+                    });
               }),
         ],
       ),

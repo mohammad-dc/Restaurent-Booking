@@ -4,11 +4,10 @@ class Admin {
   Map<String, dynamic> admin;
   Admin({this.admin, this.message, this.success});
 
-  factory Admin.fromJson(Map<String, dynamic> json){
+  factory Admin.fromJson(Map<String, dynamic> json) {
     return Admin(
-      admin: json['admin'],
-      message: json['message'],
-      success: json['success']
-    );
+        admin: json['admin'],
+        message: json['message'],
+        success: json['success']);
   }
 }

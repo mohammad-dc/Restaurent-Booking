@@ -7,13 +7,12 @@ class Order {
 
   Order({this.message, this.success, this.count, this.order, this.orders});
 
-  factory Order.fromJson(Map<String, dynamic> json){
+  factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      order: json['order'],
-      orders: json['orders'],
-      message: json['message'],
-      success: json['success'],
-      count: json['count']
-    );
+        order: json['order'],
+        orders: json['orders'],
+        message: json['message'],
+        success: json['success'],
+        count: json['count']);
   }
 }

@@ -103,7 +103,8 @@ class _AdminLoginState extends State<AdminLogin> {
                         if (_formKey.currentState.validate()) {
                           isLoading = true;
                           setState(() {
-                            _futureAdmin = adminLogin(email_controller.text, password_controller.text);
+                            _futureAdmin = adminLogin(email_controller.text,
+                                password_controller.text);
                             isLoading = false;
                           });
                         }
@@ -111,31 +112,33 @@ class _AdminLoginState extends State<AdminLogin> {
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 6.0, horizontal: 10.0),
-                        child: isLoading? CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(whiteColor),
-                        ):  Text(
-                          'تسجيل الدخول',
-                          style: TextStyle(
-                            color: whiteColor,
-                            fontFamily: 'Cairo',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20.0,
-                          ),
-                        ),
+                        child: isLoading
+                            ? CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(whiteColor),
+                              )
+                            : Text(
+                                'تسجيل الدخول',
+                                style: TextStyle(
+                                  color: whiteColor,
+                                  fontFamily: 'Cairo',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20.0,
+                                ),
+                              ),
                       ),
                     ),
                     FutureBuilder<dynamic>(
                       future: _futureAdmin,
-                      builder: (context, snapshot){
-                        if(snapshot.hasData){
-                          if(snapshot.data.success){
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data.success) {
                             showToast(snapshot.data.message, greenColor);
                             Navigator.of(context).pushNamed('/admin/dashboard');
                           } else {
                             showToast(snapshot.data.message, redColor);
                           }
-                          
-                        } else if(snapshot.hasError){
+                        } else if (snapshot.hasError) {
                           print(snapshot.error);
                         }
                         return Container();
