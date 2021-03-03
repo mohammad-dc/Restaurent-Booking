@@ -4,7 +4,8 @@ import 'package:flutter_application_1/constants/colors.dart';
 class UserNotification extends StatelessWidget {
   final String image;
   final String time;
-  UserNotification({this.image, this.time});
+  final String date;
+  UserNotification({this.image, this.time, this.date});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +41,7 @@ class UserNotification extends StatelessWidget {
                   color: grayColormax,
                 ),
                 Text(
-                  '1/1/2021',
+                  date,
                   style: TextStyle(
                       color: grayColormax, fontFamily: 'Cairo', fontSize: 14.0),
                 )

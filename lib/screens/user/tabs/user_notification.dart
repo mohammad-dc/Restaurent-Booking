@@ -82,6 +82,7 @@ class _UserNotificationsTabState extends State<UserNotificationsTab> {
                                         .map((e) => UserNotification(
                                               image: e['menu_food_id']['image'],
                                               time: e['time_to_finish'],
+                                              date: e['date'],
                                             ))
                                         .toList())
                                 : NoData(
