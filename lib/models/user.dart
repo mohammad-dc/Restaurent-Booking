@@ -5,7 +5,13 @@ class User {
   Map<String, dynamic> user;
   List<dynamic> users;
 
-  User({this.token, this.message, this.success, this.user, this.users});
+  User({
+    this.token,
+    this.message,
+    this.success,
+    this.user,
+    this.users,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(

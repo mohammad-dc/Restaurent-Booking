@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants/colors.dart';
 
 class UserNotification extends StatelessWidget {
+  final String image;
+  final String time;
+  UserNotification({this.image, this.time});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,17 +17,36 @@ class UserNotification extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(8.0),
-          child: Image.network(
-            'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2VyfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80',
-          ),
+          child: Image.network(image),
         ),
         SizedBox(
           width: 5,
         ),
-        Text(
-          'سيتم تحضير الوجبة خلال 5 دقائق',
-          style:
-              TextStyle(fontFamily: 'Cairo', color: blackColor, fontSize: 16),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'سيتم تحضير الوجبة خلال' + " " + time,
+              style: TextStyle(
+                  fontFamily: 'Cairo', color: blackColor, fontSize: 16),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.history,
+                  size: 13.0,
+                  color: grayColormax,
+                ),
+                Text(
+                  '1/1/2021',
+                  style: TextStyle(
+                      color: grayColormax, fontFamily: 'Cairo', fontSize: 14.0),
+                )
+              ],
+            )
+          ],
         )
       ]),
     );

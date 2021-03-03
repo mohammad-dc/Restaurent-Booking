@@ -134,3 +134,23 @@ Future<dynamic> fetchUserOrders() async {
     return Exception('حدث خطأ في العملية : ${response.toString()}');
   }
 }
+
+// fetch notifications
+Future<dynamic> fetchUserNotifications() async {
+  String token = await SharedPreferencesHelper.getStorageData('userToken');
+  String user_id = await SharedPreferencesHelper.getStorageData('userID');
+  final response = await http.get('$URL_USER_ORDER/get-notification/$user_id',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      });
+  if (response.statusCode == 200) {
+    return Order.fromJson(jsonDecode(response.body));
+  } else if (response.statusCode == 401 ||
+      response.statusCode == 400 ||
+      response.statusCode == 404) {
+    return Error.fromJson(jsonDecode(response.body));
+  } else {
+    return Exception('حدث خطأ في العملية : ${response.toString()}');
+  }
+}
