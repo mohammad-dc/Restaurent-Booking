@@ -77,8 +77,9 @@ Future<dynamic> userUpdate(
 }
 
 //fetch notifications
-Future<dynamic> fetchNotifications(_id) async {
+Future<dynamic> fetchNotifications() async {
   String token = await SharedPreferencesHelper.getStorageData('userToken');
+  String _id = await SharedPreferencesHelper.getStorageData('userID');
   final response = await http.get('$URL_USER/get-notificatios/$_id',
       headers: <String, String>{
         'Content-Type': 'application/json',
