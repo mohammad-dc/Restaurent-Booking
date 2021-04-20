@@ -134,7 +134,10 @@ class _AdminLoginState extends State<AdminLogin> {
                         if (snapshot.hasData) {
                           if (snapshot.data.success) {
                             showToast(snapshot.data.message, greenColor);
-                            Navigator.of(context).pushNamed('/admin/dashboard');
+                            Future.delayed(Duration.zero, () {
+                              Navigator.of(context)
+                                  .pushNamed('/admin/dashboard');
+                            });
                           } else {
                             showToast(snapshot.data.message, redColor);
                           }

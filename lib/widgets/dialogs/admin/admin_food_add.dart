@@ -31,7 +31,7 @@ class _AdminAddMenuFoodDialogState extends State<AdminAddMenuFoodDialog> {
         appBar: AppBar(
           backgroundColor: gradientColor1,
           title: Text(
-            'تعديل معلومات المسؤول',
+            'اضافة وجبة للقائمة',
             style: TextStyle(color: whiteColor, fontFamily: 'Cairo'),
           ),
           actions: [

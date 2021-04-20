@@ -37,7 +37,7 @@ class _AdminUpdateMenuFoodDialogState extends State<AdminUpdateMenuFoodDialog> {
         appBar: AppBar(
           backgroundColor: gradientColor1,
           title: Text(
-            'تعديل معلومات المسؤول',
+            'تعديل على الوجبة',
             style: TextStyle(color: whiteColor, fontFamily: 'Cairo'),
           ),
           actions: [

@@ -39,7 +39,7 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
           } else {
             if (snapshot.data.message == 'غير مسموح لك بالدخول!!!') {
               showToast(snapshot.data.message, redColor);
-              Navigator.of(context).pushNamed('/admin/login');
+              // Navigator.of(context).pushNamed('/admin/login');
             }
             showToast(snapshot.data.message, redColor);
           }
@@ -79,18 +79,20 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
                             IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
-                                showGeneralDialog(
-                                    context: context,
-                                    barrierColor: whiteColor,
-                                    barrierDismissible: true,
-                                    barrierLabel:
-                                        MaterialLocalizations.of(context)
-                                            .modalBarrierDismissLabel,
-                                    pageBuilder: (BuildContext context,
-                                        Animation first, Animation second) {
-                                      return AdminDataUpdateDialog(
-                                          initData: mapAdminData);
-                                    });
+                                Future.delayed(Duration.zero, () {
+                                  showGeneralDialog(
+                                      context: context,
+                                      barrierColor: whiteColor,
+                                      barrierDismissible: true,
+                                      barrierLabel:
+                                          MaterialLocalizations.of(context)
+                                              .modalBarrierDismissLabel,
+                                      pageBuilder: (BuildContext context,
+                                          Animation first, Animation second) {
+                                        return AdminDataUpdateDialog(
+                                            initData: mapAdminData);
+                                      });
+                                });
                               },
                               color: grayColormax,
                             )

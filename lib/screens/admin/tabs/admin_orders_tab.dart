@@ -77,7 +77,7 @@ class _AdminOrdersTabState extends State<AdminOrdersTab> {
                                           ))
                                       .toList())
                               : NoData(
-                                  text: 'لا يوجد قائمة طعام للان !!!',
+                                  text: 'لا يوجد طلبات للان !!!',
                                 )
                         ],
                       ),
